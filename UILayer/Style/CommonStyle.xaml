@@ -1,0 +1,206 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:Class="UILayer.Style.CommonStyle"
+                >
+
+    <!--#region Custom Button Style-->
+    <Style TargetType="{x:Type Button}" x:Key="BorderCornerRadius">
+        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="{TemplateBinding Border.CornerRadius}" 
+                        Background="{TemplateBinding Background}" BorderBrush="DarkGray" 
+                        BorderThickness="1,1,1,1" >
+                        <ContentPresenter x:Name="contentPresenter" 
+                                          TextBlock.FontSize="{TemplateBinding FontSize}"
+                                          TextBlock.FontFamily="{TemplateBinding FontFamily}"
+                                          TextBlock.FontWeight="{TemplateBinding FontWeight}"
+                                          TextBlock.Foreground="{TemplateBinding Foreground}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                      Content="{TemplateBinding Content}" 
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      Margin="{TemplateBinding Padding}" 
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Button" x:Key="CustomButton" BasedOn="{StaticResource BorderCornerRadius}">
+        <Setter Property="Border.CornerRadius" Value="8" />
+    </Style>
+    <!--#endregion-->
+
+
+    <!--#region  GridHeader - DataGridColumnHeader Style  -->
+    <Style x:Key="DataGridHeaderStyle" TargetType="{x:Type DataGridColumnHeader}" >
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="#aecbd1"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="BorderBrush" Value="#068193"/>
+        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+        <Setter Property="Padding" Value="3"/>
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region  GridHeader - ViewBox Style (holds any control in order to reduce font within to fit)  -->
+    <Style TargetType="Viewbox">
+        <Setter Property="Stretch" Value="Uniform"/>
+        <Setter Property="StretchDirection" Value="DownOnly"/>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region  GridHeader - Label Style  -->
+    <Style TargetType="Label">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="18"/>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region  GridHeader - TextBox / ComboBox Style  -->
+    <Style x:Key="DataGridHeaderBase" TargetType="Control">
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+
+    </Style>
+
+    <Style BasedOn="{StaticResource DataGridHeaderBase}" TargetType="ComboBox"  />
+    <Style BasedOn="{StaticResource DataGridHeaderBase}" TargetType="TextBox"  />
+
+
+    <Style x:Key="textBoxInError" TargetType="TextBox">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTip"
+                              Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                              Path=(Validation.Errors)/ErrorContent}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="comboBoxInError" TargetType="ComboBox">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTip"
+                              Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                              Path=(Validation.Errors)/ErrorContent}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--#endregion-->
+
+
+    <!--#region ScrollBar Style-->
+    <Style TargetType="{x:Type ScrollBar}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="Width" Value="Auto" />
+                <Setter Property="Height" Value="20" />
+                <Setter Property="Template" Value="{DynamicResource HorizontalScrollBar}" />
+            </Trigger>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="Width" Value="20" />
+                <Setter Property="Height" Value="Auto" />
+                <Setter Property="Template" Value="{DynamicResource VerticalScrollBar}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region  GridCell - DataGridCellStyle Style-->
+    <Style x:Key="DataGridCellStyle"  TargetType="{x:Type DataGridCell}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Padding" Value="3"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                    <Border x:Name="borderCell" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" VerticalAlignment="Stretch"
+                            >
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Stretch" Width="Auto"/>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" TargetName="borderCell" Value="AliceBlue"/>
+                            <Setter Property="BorderBrush" TargetName="borderCell" Value="Transparent"/>
+                            <Setter Property="BorderThickness" TargetName="borderCell" Value="1"/>
+
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" TargetName="borderCell" Value="Black"/>
+                            <Setter Property="BorderThickness" TargetName="borderCell" Value="1"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
+
+
+    <!--#region  Complete GridStyle  -->
+    <Style x:Key="DataGridStyle" TargetType="{x:Type DataGrid}" >
+        <Setter Property="CanUserAddRows" Value="True"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="FontFamily" Value="Calibri"/>
+        <Setter Property="ColumnHeaderStyle" Value="{StaticResource DataGridHeaderStyle}"/>
+        <Setter Property="CellStyle" Value="{StaticResource DataGridCellStyle}"/>
+        <Setter Property="EnableRowVirtualization" Value="True"/>
+        <Setter Property="EnableColumnVirtualization" Value="True"/>
+        <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling"/>
+        <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True"/>
+        <Setter Property="VirtualizingStackPanel.IsContainerVirtualizable" Value="True"/>
+        <Setter Property="VirtualizingStackPanel.ScrollUnit" Value="Pixel"/>
+        <Setter Property="VirtualizingStackPanel.CacheLengthUnit" Value="Pixel"/>
+        <Setter Property="VirtualizingStackPanel.IsVirtualizingWhenGrouping" Value="True"/>
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="RowHeight" Value="34"/>
+        <Setter Property="RowHeaderWidth" Value="0"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FrozenColumnCount" Value="4"/>
+        <Setter Property="RowHeaderWidth" Value="25"/>
+
+    </Style>
+
+    <!--#endregion-->
+
+
+
+</ResourceDictionary>

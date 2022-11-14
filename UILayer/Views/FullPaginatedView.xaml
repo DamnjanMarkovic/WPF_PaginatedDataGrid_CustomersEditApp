@@ -1,0 +1,196 @@
+﻿<UserControl x:Class="UILayer.Views.FullPaginatedView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UILayer.Views"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:cal="http://www.caliburnproject.org" 
+             xmlns:models="clr-namespace:UILayer.Models"
+             mc:Ignorable="d" Height="900" Width="1400"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid x:Name="mainGrid" Background="#333333">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" MinHeight="700"/>
+        </Grid.RowDefinitions>
+
+        <!--Animation Grid-->
+        <Grid Grid.Row="0" Grid.RowSpan="2"  Visibility="{Binding DataGridVisible, 
+             Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverted}">
+            <Rectangle Name="myrect" Width="{Binding ElementName=mainGrid, Path=ActualWidth}" 
+                       Height="{Binding ElementName=mainGrid, Path=ActualHeight}">
+                <Rectangle.Fill>
+                    <LinearGradientBrush x:Name="brush" StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop x:Name="stop1" Offset="0" Color="Red"/>
+                        <GradientStop x:Name="stop2" Offset="0.5" Color="Green"/>
+                        <GradientStop x:Name="stop3" Offset="1" Color="Blue"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+                <Rectangle.Triggers>
+                    <EventTrigger RoutedEvent="Window.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard RepeatBehavior="Forever">
+                                <ColorAnimation Storyboard.TargetName="stop1" Storyboard.TargetProperty="Color" 
+                       From="Red" To="Green" Duration="0:0:1" BeginTime="0:0:0"/>
+                                <ColorAnimation Storyboard.TargetName="stop1" Storyboard.TargetProperty="Color" 
+                       From="Green" To="Blue" Duration="0:0:1" BeginTime="0:0:0.5"/>
+                                <ColorAnimation Storyboard.TargetName="stop1" Storyboard.TargetProperty="Color" 
+                       From="Blue" To="Red" Duration="0:0:1" BeginTime="0:0:1"/>
+                                <ColorAnimation Storyboard.TargetName="stop2" Storyboard.TargetProperty="Color" 
+                       From="Green" To="Blue" Duration="0:0:1" BeginTime="0:0:0"/>
+                                <ColorAnimation Storyboard.TargetName="stop2" Storyboard.TargetProperty="Color" 
+                       From="Blue" To="Red" Duration="0:0:1" BeginTime="0:0:0.5"/>
+                                <ColorAnimation Storyboard.TargetName="stop2" Storyboard.TargetProperty="Color" 
+                       From="Red" To="Green" Duration="0:0:1" BeginTime="0:0:1"/>
+                                <ColorAnimation Storyboard.TargetName="stop3" Storyboard.TargetProperty="Color" 
+                       From="Blue" To="Red" Duration="0:0:1" BeginTime="0:0:0"/>
+                                <ColorAnimation Storyboard.TargetName="stop3" Storyboard.TargetProperty="Color" 
+                       From="Red" To="Green" Duration="0:0:1" BeginTime="0:0:0.5"/>
+                                <ColorAnimation Storyboard.TargetName="stop3" Storyboard.TargetProperty="Color" 
+                       From="Green" To="Blue" Duration="0:0:1" BeginTime="0:0:1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Rectangle.Triggers>
+            </Rectangle>
+        </Grid>
+
+        <!--Buttons Grid-->
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Load Customers" Style="{StaticResource CustomButton}"
+                    Width="200" Height="60" Background="DarkBlue" Foreground="White"
+                    FontSize="20" FontWeight="DemiBold">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <cal:ActionMessage MethodName="LoadCustomers">
+                            <!--<cal:Parameter Value="FullGrid" />-->
+                        </cal:ActionMessage>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="{Binding ContentPresenterFirstPage}"  Style="{StaticResource CustomButton}"
+                    Width="80" Height="60" Foreground="White" Background="DarkBlue"
+                    FontSize="16" FontWeight="DemiBold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <cal:ActionMessage MethodName="ChangeButtonClicked">
+                                <cal:Parameter Value="FirstPage" />
+                            </cal:ActionMessage>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+
+                <Button Grid.Column="1"  Content="{Binding ContentPresenterStepBack}" Style="{StaticResource CustomButton}"
+                    Width="100" Height="60" Background="DarkBlue" Foreground="White"
+                    FontSize="16" FontWeight="DemiBold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <cal:ActionMessage MethodName="ChangeButtonClicked">
+                                <cal:Parameter Value="PreviousPage" />
+                            </cal:ActionMessage>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Grid.Column="2" Content="{Binding ContentPresenterStepForward}"  Style="{StaticResource CustomButton}"
+                    Width="100" Height="60" Foreground="White" Background="DarkBlue"
+                    FontSize="16" FontWeight="DemiBold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <cal:ActionMessage MethodName="ChangeButtonClicked">
+                                <cal:Parameter Value="NextPage" />
+                            </cal:ActionMessage>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+
+                <Button Grid.Column="3"  Content="{Binding ContentPresenterLastPage}" Style="{StaticResource CustomButton}"
+                    Width="100" Height="60" Background="DarkBlue" Foreground="White"
+                    FontSize="16" FontWeight="DemiBold">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <cal:ActionMessage MethodName="ChangeButtonClicked">
+                                <cal:Parameter Value="LastPage" />
+                            </cal:ActionMessage>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+
+            </Grid>
+
+        </Grid>
+
+        <!--Loading anumation -->
+        <Grid Grid.Row="1" Visibility="{Binding LoadingAnimationVisible, 
+             Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Normal}"
+              Width="{Binding ElementName=mainGrid, Path=ActualWidth}"
+              Height="{Binding ElementName=mainGrid, Path=ActualHeight}"
+              >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel.Triggers>
+                    <EventTrigger RoutedEvent="Rectangle.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard Name="waitingAnimation" RepeatBehavior="Forever">
+                                <DoubleAnimation Storyboard.TargetName="Dot1" BeginTime="0:0:0.1" Storyboard.TargetProperty="Opacity" From=".1" To="1" AutoReverse="True" Duration="0:0:0.4"/>
+                                <DoubleAnimation Storyboard.TargetName="Dot2" BeginTime="0:0:0.2" Storyboard.TargetProperty="Opacity" From=".1" To="1" AutoReverse="True" Duration="0:0:0.4"/>
+                                <DoubleAnimation Storyboard.TargetName="Dot3" BeginTime="0:0:0.3" Storyboard.TargetProperty="Opacity" From=".1" To="1" AutoReverse="True" Duration="0:0:0.4"/>
+                                <DoubleAnimation Storyboard.TargetName="Dot4" BeginTime="0:0:0.4" Storyboard.TargetProperty="Opacity" From=".1" To="1" AutoReverse="True" Duration="0:0:0.4"/>
+                                <DoubleAnimation Storyboard.TargetName="Dot5" BeginTime="0:0:0.5" Storyboard.TargetProperty="Opacity" From=".1" To="1" AutoReverse="True" Duration="0:0:0.4"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </StackPanel.Triggers>
+                <Ellipse Name="Dot1" Fill="White" Opacity=".1" Width="88" Height="88" Margin="20"/>
+                <Ellipse Name="Dot2" Fill="White" Opacity=".1" Width="88" Height="88" Margin="20"/>
+                <Ellipse Name="Dot3" Fill="White" Opacity=".1" Width="88" Height="88" Margin="20"/>
+                <Ellipse Name="Dot4" Fill="White" Opacity=".1" Width="88" Height="88" Margin="20"/>
+                <Ellipse Name="Dot5" Fill="White" Opacity=".1" Width="88" Height="88" Margin="20"/>
+            </StackPanel>
+        </Grid>
+
+        <!--Data Grid-->
+        <Grid Grid.Row="1" Visibility="{Binding DataGridVisible, 
+             Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Normal}">
+            <DataGrid Style="{StaticResource DataGridStyle}" 
+                      Width="{Binding ElementName=mainGrid, Path=ActualWidth}"
+              x:Name="dataGrid" 
+              
+              HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0" 
+              SelectedItem="{Binding SelectedCustomer}" ItemsSource="{Binding CustomersList}"  
+              GridLinesVisibility="All"  AutoGenerateColumns="False" SelectionUnit="FullRow" 
+              BorderThickness="1"  IsReadOnly="True"
+              >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick" >
+                        <cal:ActionMessage MethodName="EditCustomerAsync">
+                        </cal:ActionMessage>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Customer ID" Binding= "{Binding CustomerId}" Width="*" />
+                    <DataGridTextColumn Header="First Name" Binding= "{Binding FirstName}" Width="*" />
+                    <DataGridTextColumn Header="Last Name" Binding= "{Binding LastName}" Width="*"  />
+                    <DataGridTextColumn Header="Address" Binding= "{Binding Address1}" Width="*" />
+                    <DataGridTextColumn Header="City" Binding= "{Binding City}"  Width="*"   />
+                    <DataGridTextColumn Header="State" Binding= "{Binding State}"  Width="*"   />
+                    <DataGridTextColumn Header="Zip" Binding= "{Binding Zip}"  Width="*"   />
+                    <DataGridTextColumn Header="Phone" Binding= "{Binding Phone}"  Width="*"   />
+                    <DataGridTextColumn Header="Age" Binding= "{Binding Age}"  Width="*"   />
+                    <DataGridTextColumn Header="Sales" Binding= "{Binding Sales}"  Width="*"   />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+    </Grid>
+</UserControl>

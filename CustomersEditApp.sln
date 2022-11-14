@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UILayer", "UILayer\UILayer.csproj", "{C617CC57-7836-4E29-B60B-E3127AEC4118}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryLayer", "RepositoryLayer\RepositoryLayer.csproj", "{73DA993A-A138-44D3-9BCA-4D5251C5CDA0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C617CC57-7836-4E29-B60B-E3127AEC4118}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C617CC57-7836-4E29-B60B-E3127AEC4118}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C617CC57-7836-4E29-B60B-E3127AEC4118}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C617CC57-7836-4E29-B60B-E3127AEC4118}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73DA993A-A138-44D3-9BCA-4D5251C5CDA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73DA993A-A138-44D3-9BCA-4D5251C5CDA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73DA993A-A138-44D3-9BCA-4D5251C5CDA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73DA993A-A138-44D3-9BCA-4D5251C5CDA0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1606AAF9-BFA0-4F33-81CA-CC1FB14F1D16}
+	EndGlobalSection
+EndGlobal
